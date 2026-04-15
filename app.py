@@ -89,53 +89,72 @@ def analyze(filename):
 
     # Create Static folder if doesn't exsits
     os.makedirs("static", exist_ok=True)
-    plt.style.use("seaborn-v0_8")
 
+    # Styling for Charts
+    plt.style.use("seaborn-v0_8")
+    plt.rcParams.update({
+    "font.size": 20,
+    "axes.labelsize": 25,
+    "xtick.labelsize": 16,
+    "ytick.labelsize": 16,
+    })
+    
     # ----- CHART 1: Rating Distribution -----
     chart1_path = os.path.join("static", f"rating_{filename}.png")
 
     if len(read_df) > 0:
-        plt.figure(figsize=(7, 4))
+        plt.figure(figsize=(10, 6))
 
         rating_counts = read_df["My Rating"].value_counts().sort_index()
         rating_counts = rating_counts[rating_counts.index > 0]
 
-        plt.bar(
-            rating_counts.index.astype(int), 
-            rating_counts.values,
-            color="#F58518"
-        )
+        ratings = rating_counts.index.astype(int)
+        values = rating_counts.values
 
-        plt.title("Rating Distribution of Read Books")
+        color_map = {
+            1: "#F3C2C2",
+            2: "#D48585",
+            3: "#B63838", 
+            4: "#860B0B",
+            5: "#580000",
+        }
+
+        colors = [color_map.get(r, "#999999") for r in ratings]
+
+        plt.bar(ratings, values, color=colors, edgecolor="white", linewidth=1)
+
         plt.xlabel("Rating")
         plt.ylabel("Count")
         plt.xticks([1, 2, 3, 4, 5])
 
-        plt.tight_layout()
-        plt.savefig(chart1_path, dpi=150)
+        plt.grid(axis="y", linestyle="--", alpha=0.3)
+        plt.savefig(chart1_path, dpi=200, bbox_inches="tight")
         plt.close()
 
     # ----- CHART 2: Books Per Year -----
     chart2_path = os.path.join("static", f"year_{filename}.png")
 
     if len(year_counts) > 0:
-        plt.figure(figsize=(7,4))
+        plt.figure(figsize=(10,6))
 
         plt.bar(
             year_counts.index.astype(int), 
             year_counts.values, 
-            color="#4C78A8"
+            color="#41496E"
         )
 
-        plt.title("Books Read Per Year")
         plt.xlabel("Year")
         plt.ylabel("Books")
         
-        plt.xticks(year_counts.index.astype(int))
+        plt.xticks(
+            year_counts.index.astype(int),
+            rotation=45,
+            ha="right"
+        )
+
         plt.grid(axis="y", linestyle="--", alpha=0.3)
 
-        plt.tight_layout()
-        plt.savefig(chart2_path, dpi=150)
+        plt.savefig(chart2_path, dpi=200, bbox_inches="tight")
         plt.close()
 
     # Render

@@ -3,28 +3,29 @@
 ========================================================= */
 
 :root {
-    /* Light theme (Goodreads-inspired) */
-    --bg: #f3f1ea;
-    --text: #1e1b16;
+    /* Light Theme */
+    --bg: #f8e8e3;
+    --text: #1e1716;
     --card: #ffffff;
-    --border: #e6e0d6;
+    --border: #8d4141;
 
-    --accent: #382110;     /* Goodreads brown */
-    --accent-2: #00635d;   /* Goodreads green */
-    --link: #00635d;
+    --accent: #381010;    
+    --accent-2: #010252;   
+    --link: #001f63;
 
     --shadow: rgba(0, 0, 0, 0.08);
 }
 
+/* Dark Theme */
 body.dark {
-    --bg: #1c1b18;
-    --text: #e8e6e3;
-    --card: #2a2926;
-    --border: #3a3834;
+    --bg: #221818;
+    --text: #ebdfdf;
+    --card: #332020;
+    --border: #eec0c0;
 
-    --accent: #c4a484;
-    --accent-2: #7fb3a3;
-    --link: #e0ece9;
+    --accent: #c48484;
+    --accent-2: #798ba5;
+    --link: #ced0e2;
 
     --shadow: rgba(0, 0, 0, 0.5);
 }
@@ -74,9 +75,27 @@ button {
     background: var(--accent);
     color: white;
     transition: all 0.2s ease;
+    margin-top: 15px;
 }
 
 button:hover {
+    opacity: 0.9;
+    transform: scale(1.03);
+}
+
+.btn {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--accent);
+    color: #fff;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn:hover {
     opacity: 0.9;
     transform: scale(1.03);
 }
@@ -124,7 +143,7 @@ button:hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.card:hover {
+.page-dashboard .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 35px var(--shadow);
 }
@@ -142,6 +161,7 @@ button:hover {
     display: flex;
     flex-direction: column;
     gap: 10px;
+    padding: 10px;
 }
 
 form {
@@ -171,6 +191,16 @@ input:focus {
     border-color: var(--accent);
 }
 
+img {
+    width: 100%;
+    max-width: 700px;
+    height: auto;
+    display: block;
+    margin: 10px auto 0;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px var(--shadow);
+}
+
 /* =========================================================
    5. UTILITIES
 ========================================================= */
@@ -181,7 +211,7 @@ input:focus {
 }
 
 .hint {
-    font-size: 13px;
+    font-size: 18px;
     opacity: 0.7;
 }
 
