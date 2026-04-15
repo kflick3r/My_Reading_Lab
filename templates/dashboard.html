@@ -12,7 +12,12 @@
 
         <img src="{{ url_for('static', filename=chart1) }}">
         <img src="{{ url_for('static', filename=chart2) }}">
-        
+
+        <div class="card">
+            <h2>Most Active Year</h2>
+            <p>{{ stats.favorite_year }} ({{ stats.best_year_count }} books)</p>
+        </div>
+
         <a href="/upload">Upload another file</a>
     </body>
 </html>
