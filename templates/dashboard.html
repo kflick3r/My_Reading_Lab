@@ -10,6 +10,9 @@
         <p><b>Average Rating:</b> {{ stats.avg_rating }}</p>
         <p><b>Most Common Author:</b> {{ stats.most_common_author }}</p>
 
+        <img src="{{ url_for('static', filename=chart1) }}">
+        <img src="{{ url_for('static', filename=chart2) }}">
+        
         <a href="/upload">Upload another file</a>
     </body>
 </html>
