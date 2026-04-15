@@ -2,13 +2,15 @@
 <html>
     <head>
         <title>My Reading Lab</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
     <body>
         <div class="container">
             
             <div class="top-bar">
                 <h1>My Reading Lab</h1>
+                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             </div>
 
             <div class="center">

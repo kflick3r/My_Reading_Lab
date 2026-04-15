@@ -3,6 +3,7 @@
     <head>
         <title>Upload Goodreads CSV</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
 
     <body>
@@ -10,6 +11,7 @@
             
             <div class="top-bar">
                 <h1>Upload your Goodreads CSV</h1>
+                <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             </div>
 
             <div class="card center">
