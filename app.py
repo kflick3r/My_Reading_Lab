@@ -92,7 +92,7 @@ def analyze(filename):
     plt.style.use("seaborn-v0_8")
 
     # ----- CHART 1: Rating Distribution -----
-    chart1_path = os.path.join("static", "rating_chart.png")
+    chart1_path = os.path.join("static", f"rating_{filename}.png")
 
     if len(read_df) > 0:
         plt.figure(figsize=(6, 4))
@@ -116,7 +116,7 @@ def analyze(filename):
         plt.close()
 
     # ----- CHART 2: Books Per Year -----
-    chart2_path = os.path.join("static", "year_chart.png")
+    chart2_path = os.path.join("static", f"year_{filename}.png")
 
     if len(year_counts) > 0:
         plt.figure(figsize=(7,4))
@@ -142,8 +142,8 @@ def analyze(filename):
     return render_template(
         "dashboard.html", 
         stats=stats,
-        chart1="rating_chart.png",
-        chart2="year_chart.png"
+        chart1=f"rating_{filename}.png",
+        chart2=f"year_{filename}.png"
         )
 
 
