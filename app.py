@@ -95,7 +95,7 @@ def analyze(filename):
     chart1_path = os.path.join("static", f"rating_{filename}.png")
 
     if len(read_df) > 0:
-        plt.figure(figsize=(6, 4))
+        plt.figure(figsize=(7, 4))
 
         rating_counts = read_df["My Rating"].value_counts().sort_index()
         rating_counts = rating_counts[rating_counts.index > 0]

@@ -5,7 +5,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
-    <body>
+    <body class="page-home">
         <div class="container">
             
             <div class="top-bar">
@@ -15,9 +15,8 @@
 
             <div class="card center">
                 <h1>Analyze your Goodreads</h1>
-                <p><i>Upload your CSV and explore your reading habits</i></p>
+                <p class="hint">Upload your Goodreads CSV and explore your reading habits</p>
 
-                <br>
 
                 <a href="/upload">
                     <button>Upload Goodreads CVS</button>

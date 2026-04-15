@@ -5,7 +5,9 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
-    <body>
+
+    <body class="page-dashboard">
+
         <div class="wrapped">
 
             <div class="top-bar">
@@ -13,7 +15,7 @@
                 <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             </div>
 
-            <!-- STAT CARDS -->
+            <!-- STATS CARDS -->
             <div class="stats-container">
 
                 <div class="card animate delay-1">
@@ -27,7 +29,7 @@
                 </div>
 
                 <div class="card animate delay-3">
-                    <h2>To Read:</h2>
+                    <h2>To Be Read:</h2>
                     <p>{{ stats.to_read }}</p>
                 </div>
 
@@ -51,12 +53,12 @@
             <!-- CHARTS -->
             <div class="charts">
 
-                <div class="chart-box animate delay-7">
+                <div class="card chart-box animate delay-7">
                     <h3>Ratings</h3>
                     <img src="{{ url_for('static', filename=chart1) }}">
                 </div>
 
-                <div class="chart-box animate delay-8">
+                <div class="card chart-box animate delay-8">
                     <h3>Books Per Year</h3>
                     <img src="{{ url_for('static', filename=chart2) }}">
                 </div>
@@ -64,6 +66,8 @@
 
             <div class="center">
                 <a href="/upload">Upload Another File</a>
+                <br><br>
+                <a href="/">Back to Home Page</a>
             </div>
 
         </div>

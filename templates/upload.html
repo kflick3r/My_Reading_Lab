@@ -6,7 +6,7 @@
         <script src="{{ url_for('static', filename='script.js') }}"></script>
     </head>
 
-    <body>
+    <body class="page-upload">
         <div class="container">
             
             <div class="top-bar">
@@ -14,18 +14,18 @@
                 <button onclick="toggleDarkMode()">Toggle Dark Mode</button>
             </div>
 
-            <div class="card center">
+            <div class="card upload-card">
                 <form action="/upload" method="POST" enctype="multipart/form-data">
                     <input type="file" name="file" accept=".csv" required>
-                    <br><br>
+                    <br>
                     <button type="submit">Upload</button>
                 </form>
-
-                <br>
-
-                <a href="/">Back to Home Page</a>
-
             </div>
+
+            <div class="center">
+                <a href="/">Back to Home Page</a>
+            </div>
+
         </div>
     </body>
 </html>
