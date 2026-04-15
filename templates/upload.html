@@ -2,13 +2,28 @@
 <html>
     <head>
         <title>Upload Goodreads CSV</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
-    <body>
-        <h1>Upload your Goodreads CSV</h1>
 
-        <form action=""/upload" method="POST" enctype="multipart/form-data">
-            <input type="file" name="file" accept=".csv" required>
-            <button type="submit">Upload</button>
-        </form>
+    <body>
+        <div class="container">
+            
+            <div class="top-bar">
+                <h1>Upload your Goodreads CSV</h1>
+            </div>
+
+            <div class="card center">
+                <form action=""/upload" method="POST" enctype="multipart/form-data">
+                    <input type="file" name="file" accept=".csv" required>
+                    <br><br>
+                    <button type="submit">Upload</button>
+                </form>
+
+                <br>
+
+                <a href="/">Back to Home Page</a>
+
+            </div>
+        </div>
     </body>
 </html>

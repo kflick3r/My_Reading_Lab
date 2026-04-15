@@ -2,13 +2,25 @@
 <html>
     <head>
         <title>My Reading Lab</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"
     </head>
     <body>
-        <h1>My Reading Lab</h1>
-        <p>Welcome to your reading analytics dashboard</p>
+        <div class="container">
+            
+            <div class="top-bar">
+                <h2>My Reading Lab</h2>
+            </div>
 
-        <a href="/upload">
-            <button>Upload Goodreads CVS</button>
-        </a>
+            <div class="center">
+                <h1>Turn your Goodreads into Insight</h1>
+                <p>Upload your CSV and explore your reading habits.</p>
+
+                <br>
+
+                <a href="/upload">
+                    <button>Upload Goodreads CVS</button>
+                </a>
+            </div>
+        </div>
     </body>
 </html>
