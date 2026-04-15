@@ -13,7 +13,6 @@ __pycache__/
 
 # Uploaded user data
 data/uploads/
-data/*.csv
 
 # OS files
 .DS_Store
