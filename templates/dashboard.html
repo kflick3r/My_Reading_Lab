@@ -2,22 +2,60 @@
 <html>
     <head>
         <title>Dashboard</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     </head>
     <body>
         <h1>Your Reading Stats</h1>
+        
+        <!-- STAT CARDS -->
+        <div class="stats-container">
 
-        <p><b>Total Books:</b> {{ stats.total_books }}</p>
-        <p><b>Average Rating:</b> {{ stats.avg_rating }}</p>
-        <p><b>Most Common Author:</b> {{ stats.most_common_author }}</p>
+            <div class="card">
+                <h2>Total Books:</h2>
+                <p>{{ stats.total_books }}</p>
+            </div>
 
-        <img src="{{ url_for('static', filename=chart1) }}">
-        <img src="{{ url_for('static', filename=chart2) }}">
+            <div class="card">
+                <h2>Books Read</h2>
+                <p>{{ stats.books_read }}</p>
+            </div>
 
-        <div class="card">
-            <h2>Most Active Year</h2>
-            <p>{{ stats.favorite_year }} ({{ stats.best_year_count }} books)</p>
+            <div class="card">
+                <h2>To Read</h2>
+                <p>{{ stats.to_read }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Average Rating</h2>
+                <p>{{ stats.avg_rating }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Most Read Author</h2>
+                <p>{{ stats.most_common_author }}</p>
+            </div>
+
+            <div class="card">
+                <h2>Most Active Year</h2>
+                <p>{{ stats.favorite_year }} ({{ stats.best_year_count }} books)</p>
+            </div>
+        </div>
+        
+
+        <!-- CHARTS -->
+         <div class="charts">
+
+            <div class="chart-box">
+                <h3>Ratings</h3>
+                <img src="{{ url_for('static', filename=chart1) }}">
+            </div>
+
+            <div class="chart-box">
+                <h3>Books Per Year</h3>
+                <img src="{{ url_for('static', filename=chart2) }}">
+            </div>
         </div>
 
-        <a href="/upload">Upload another file</a>
+        <a href="/upload">Upload Another File</a>
     </body>
 </html>
