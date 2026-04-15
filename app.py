@@ -72,12 +72,20 @@ def analyze(filename):
     chart1_path = os.path.join("static", "rating_chart.png")
 
     if len(read_df) > 0:
-        plt.figure()
-        read_df["My Rating"].value_counts().sort_index().plot(kind="bar")
+        plt.figure(figsize=(6, 4))
+
+        rating_counts = read_df["My Rating"].value_counts().sort_index()
+        rating_counts = rating_counts[rating_counts.index > 0]
+
+        plt.bar(rating_counts.index.astype(int), rating_counts.values)
+
         plt.title("Rating Distribution of Read Books")
         plt.xlabel("Rating")
         plt.ylabel("Count")
-        plt.savefig(chart1_path)
+        plt.xticks([1, 2, 3, 4, 5])
+
+        plt.tight_layout()
+        plt.savefig(chart1_path, dpi=150)
         plt.close()
 
     # ----- CHART 2: Books Per Year -----
@@ -86,14 +94,25 @@ def analyze(filename):
     if len(read_df) > 0:
         temp = read_df.copy()
         temp["Date Read"] = pd.to_datetime(temp["Date Read"], errors="coerce")
-        temp["Year"] = temp["Date Read"].dt.year
+        temp = temp.dropna(subset=["Date Read"])
 
-        plt.figure()
-        temp["Year"].value_counts().sort_index().plot(kind="line", marker="o")
+        temp["Year"] = temp["Date Read"].dt.year
+        
+        temp["Year"] = temp["Year"].astype("int64")
+
+        year_counts = temp.groupby("Year").size().sort_index()
+
+        plt.figure(figsize=(6,4))
+
+        plt.plot(year_counts.index.astype(int), year_counts.values, marker="o")
+
         plt.title("Books Read Per Year")
         plt.xlabel("Year")
         plt.ylabel("Books")
-        plt.savefig(chart2_path)
+        plt.xticks(year_counts.index.astype(int))
+        
+        plt.tight_layout()
+        plt.savefig(chart2_path, dpi=150)
         plt.close()
 
     return render_template(
