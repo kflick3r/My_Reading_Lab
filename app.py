@@ -36,11 +36,14 @@ def upload_file():
     save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
     file.save(save_path)
 
-    return redirect(url_for("analyze", filename=filename))
+    theme = request.form.get("theme", "light")
+
+    return redirect(url_for("analyze", filename=filename, theme=theme))
 
 # Analysis Page
 @app.route("/analyze/<filename>")
 def analyze(filename):
+    theme = request.args.get("theme", "light")
     file_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
 
     df = pd.read_csv(file_path)
@@ -84,7 +87,7 @@ def analyze(filename):
         "best_year_count": best_year_count
     }
 
-
+    plotly_template = "plotly_dark" if theme == "dark" else "simple_white"
     # ----- CHART 1: Rating Distribution -----
     if len(read_df) > 0:
         rating_counts = read_df["My Rating"].value_counts().sort_index()
@@ -117,7 +120,7 @@ def analyze(filename):
             title="Rating Distribution of Read Books",
             xaxis_title="Rating",
             yaxis_title="Count",
-            template="simple_white",
+            template=plotly_template,
         
             xaxis=dict(
                 range=[0.5, 5.5],   # locks visual range
@@ -153,7 +156,7 @@ def analyze(filename):
             title="Books Read Per Year",
             xaxis_title="Year",
             yaxis_title="Books",
-            template="simple_white",
+            template=plotly_template,
 
             yaxis=dict(fixedrange=True),
             xaxis=dict(fixedrange=True)
