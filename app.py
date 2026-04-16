@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request, redirect, url_for
-import matplotlib
-matplotlib.use("Agg")
-import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import plotly.io as pio
 import os
 import pandas as pd
 
@@ -47,7 +46,6 @@ def analyze(filename):
     df = pd.read_csv(file_path)
     # Clean Up Goodreads CSV
     df.columns = [c.strip() for c in df.columns]
-
     # Split up based on reading status 
     df["Exclusive Shelf"] = df["Exclusive Shelf"].astype(str).str.strip().str.lower()
 
@@ -66,7 +64,6 @@ def analyze(filename):
         temp = temp.dropna(subset=["Date Read"])
 
         temp["Year"] = temp["Date Read"].dt.year
-        
         temp["Year"] = temp["Year"].astype("int64")
 
         year_counts = temp.groupby("Year").size().sort_index()
@@ -87,24 +84,9 @@ def analyze(filename):
         "best_year_count": best_year_count
     }
 
-    # Create Static folder if doesn't exsits
-    os.makedirs("static", exist_ok=True)
 
-    # Styling for Charts
-    plt.style.use("seaborn-v0_8")
-    plt.rcParams.update({
-    "font.size": 20,
-    "axes.labelsize": 25,
-    "xtick.labelsize": 16,
-    "ytick.labelsize": 16,
-    })
-    
     # ----- CHART 1: Rating Distribution -----
-    chart1_path = os.path.join("static", f"rating_{filename}.png")
-
     if len(read_df) > 0:
-        plt.figure(figsize=(10, 6))
-
         rating_counts = read_df["My Rating"].value_counts().sort_index()
         rating_counts = rating_counts[rating_counts.index > 0]
 
@@ -121,49 +103,74 @@ def analyze(filename):
 
         colors = [color_map.get(r, "#999999") for r in ratings]
 
-        plt.bar(ratings, values, color=colors, edgecolor="white", linewidth=1)
+        fig1 = go.Figure(
+            data=[
+                go.Bar(
+                    x=ratings,
+                    y=values,
+                    marker_color=colors
+                )
+            ]
+        )
 
-        plt.xlabel("Rating")
-        plt.ylabel("Count")
-        plt.xticks([1, 2, 3, 4, 5])
+        fig1.update_layout(
+            title="Rating Distribution of Read Books",
+            xaxis_title="Rating",
+            yaxis_title="Count",
+            template="simple_white",
+        
+            xaxis=dict(
+                range=[0.5, 5.5],   # locks visual range
+            dtick=1,            # only show whole numbers
+            fixedrange=True     # disables zoom/pan on x-axis
+            ),
+    
+            yaxis=dict(
+                rangemode="tozero", # always start at 0
+                fixedrange=True     # disables zoom/pan on y-axis
+            )
+        )
+    else:
+        fig1 = go.Figure()
+        fig1.update_layout(title="No rating data available")
 
-        plt.grid(axis="y", linestyle="--", alpha=0.3)
-        plt.savefig(chart1_path, dpi=200, bbox_inches="tight")
-        plt.close()
+    chart1_html = pio.to_html(fig1, full_html=False)
+
 
     # ----- CHART 2: Books Per Year -----
-    chart2_path = os.path.join("static", f"year_{filename}.png")
-
     if len(year_counts) > 0:
-        plt.figure(figsize=(10,6))
-
-        plt.bar(
-            year_counts.index.astype(int), 
-            year_counts.values, 
-            color="#41496E"
+        fig2 = go.Figure(
+            data=[
+                go.Bar(
+                    x=year_counts.index,
+                    y=year_counts.values,
+                    marker_color="#4C78A8"
+                )
+            ]
         )
 
-        plt.xlabel("Year")
-        plt.ylabel("Books")
-        
-        plt.xticks(
-            year_counts.index.astype(int),
-            rotation=45,
-            ha="right"
+        fig2.update_layout(
+            title="Books Read Per Year",
+            xaxis_title="Year",
+            yaxis_title="Books",
+            template="simple_white",
+
+            yaxis=dict(fixedrange=True),
+            xaxis=dict(fixedrange=True)
         )
+    else:
+        fig2 = go.Figure()
+        fig2.update_layout(title="No year data available")
 
-        plt.grid(axis="y", linestyle="--", alpha=0.3)
-
-        plt.savefig(chart2_path, dpi=200, bbox_inches="tight")
-        plt.close()
+    chart2_html = pio.to_html(fig2, full_html=False) 
 
     # Render
     return render_template(
         "dashboard.html", 
         stats=stats,
-        chart1=f"rating_{filename}.png",
-        chart2=f"year_{filename}.png"
-        )
+        chart1=chart1_html,
+        chart2=chart2_html
+    )
 
 
 # --------
