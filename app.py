@@ -164,7 +164,7 @@ def analyze(filename):
             template=plotly_template,
 
             yaxis=dict(fixedrange=True),
-            xaxis=dict(fixedrange=True),
+            xaxis=dict(dtick=1, fixedrange=True),
             autosize=True
         )
     else:
