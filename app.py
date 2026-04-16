@@ -116,6 +116,8 @@ def analyze(filename):
             ]
         )
 
+        fig1.update_traces(marker_line_color='black', marker_line_width=1)
+
         fig1.update_layout(
             title="Rating Distribution of Read Books",
             xaxis_title="Rating",
@@ -148,10 +150,12 @@ def analyze(filename):
                 go.Bar(
                     x=year_counts.index,
                     y=year_counts.values,
-                    marker_color="#4C78A8"
+                    marker_color="#4B6886"
                 )
             ]
         )
+
+        fig2.update_traces(marker_line_color='black', marker_line_width=1)
 
         fig2.update_layout(
             title="Books Read Per Year",
