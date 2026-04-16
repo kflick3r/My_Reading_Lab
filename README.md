@@ -23,9 +23,8 @@ It turns raw data into insights.
 ---
 # Tech Stack
 - Backend: Flask (Python)
-- Database: SQLite
-- Frontend: HTML, CSS
-- Data Processing: pandas
+- Frontend: HTML, CSS, JavaScript
+- Data Processing: pandas, Plotly
 
 ---
 # Installation
