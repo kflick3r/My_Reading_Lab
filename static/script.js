@@ -1,11 +1,12 @@
 function toggleDarkMode() {
     document.body.classList.toggle("dark");
 
-    if (document.body.classList.contains("dark")) {
-        localStorage.setItem("theme", "dark");
-    } else {
-        localStorage.setItem("theme", "light");
-    }
+    const isDark = document.body.classList.contains("dark");
+
+    // Save preference
+    localStorage.setItem("theme", isDark ? "dark" : "light");
+
+    applyPlotlyTheme(isDark);
 }
 
 function setThemeInput() {
@@ -19,9 +20,32 @@ function setThemeInput() {
     }
 }
 
+function applyPlotlyTheme(isDark) {
+    const template = isDark ? "plotly_dark" : "simple_white";
+
+    const charts = document.querySelectorAll(".js-plotly-plot");
+
+    charts.forEach(chart => {
+        Plotly.relayout(chart, {
+            template: template,
+            paper_bgcolor: isDark ? "#1c1b18" : "#ffffff",
+            plot_bgcolor: isDark ? "#1c1b18" : "#ffffff",
+            font: {
+                color: isDark ? "#e8e6e3" : "#1e1b16"
+            },
+            transition: { duration: 300, easing: "cubic-in-out" }
+        });
+    });
+}
+
 // load saved theme
 window.onload = function () {
-    if (localStorage.getItem("theme") === "dark") {
+    const isDark = localStorage.getItem("theme") === "dark";
+
+    if (isDark) {
         document.body.classList.add("dark");
     }
+
+    // Apply theme to charts on load
+    applyPlotlyTheme(isDark);
 };

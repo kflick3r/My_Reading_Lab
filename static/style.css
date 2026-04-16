@@ -8,6 +8,7 @@
     --text: #1e1716;
     --card: #ffffff;
     --border: #8d4141;
+    --chart-bg: #ffffff;
 
     --accent: #381010;    
     --accent-2: #010252;   
@@ -22,6 +23,7 @@ body.dark {
     --text: #ebdfdf;
     --card: #332020;
     --border: #eec0c0;
+    --chart-bg: #1c1b18;
 
     --accent: #c48484;
     --accent-2: #798ba5;
@@ -110,7 +112,7 @@ button:hover {
 }
 
 .wrapped {
-    max-width: 1000px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 40px 20px;
 }
@@ -122,8 +124,7 @@ button:hover {
     margin-bottom: 30px;
 }
 
-.stats-container,
-.charts {
+.stats-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     gap: 20px;
@@ -143,6 +144,7 @@ button:hover {
     transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+
 .page-dashboard .card:hover {
     transform: translateY(-4px);
     box-shadow: 0 10px 35px var(--shadow);
@@ -157,11 +159,29 @@ button:hover {
     align-items: stretch;
 }
 
+.charts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    align-items: start;
+    margin-top: 30px;
+}
+
 .chart-box {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    padding: 10px;
+    padding: 20px;
+    width: 100%;
+    min-height: 420px;
+    background-color: var(--chart-bg);
+}
+
+
+.js-plotly-plot,
+.plotly-container {
+    width: 100%;
+    max-width: 100%;
     overflow: hidden;
 }
 

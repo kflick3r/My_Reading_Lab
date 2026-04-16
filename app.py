@@ -131,13 +131,14 @@ def analyze(filename):
             yaxis=dict(
                 rangemode="tozero", # always start at 0
                 fixedrange=True     # disables zoom/pan on y-axis
-            )
+            ),
+            autosize=True
         )
     else:
         fig1 = go.Figure()
         fig1.update_layout(title="No rating data available")
 
-    chart1_html = pio.to_html(fig1, full_html=False)
+    chart1_html = pio.to_html(fig1, full_html=False, config={"responsive": True})
 
 
     # ----- CHART 2: Books Per Year -----
@@ -159,13 +160,14 @@ def analyze(filename):
             template=plotly_template,
 
             yaxis=dict(fixedrange=True),
-            xaxis=dict(fixedrange=True)
+            xaxis=dict(fixedrange=True),
+            autosize=True
         )
     else:
         fig2 = go.Figure()
         fig2.update_layout(title="No year data available")
 
-    chart2_html = pio.to_html(fig2, full_html=False) 
+    chart2_html = pio.to_html(fig2, full_html=False, config={"responsive": True}) 
 
     # Render
     return render_template(
